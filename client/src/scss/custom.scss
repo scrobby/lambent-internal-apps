@@ -1,0 +1,29 @@
+$lp-orange: #f05c00;
+
+$min-contrast-ratio: 3;
+
+$theme-colors: (
+    "primary": $lp-orange
+);
+
+.navItem {
+    color: white !important;
+}
+
+html {
+    background-color: white !important;
+}
+  
+.lp-mainContainer {
+    padding: 0px !important;
+}
+
+.lp-navbarBrand {
+    font-weight: 600;
+}
+
+$navbar-dark-active-color: $lp-orange;
+$navbar-dark-toggler-border-color: $lp-orange;
+$dropdown-link-active-bg: $lp-orange;
+
+@import "~bootstrap/scss/bootstrap";
