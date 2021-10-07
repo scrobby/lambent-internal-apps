@@ -54,17 +54,12 @@ export default class App extends Component {
               </Navbar.Collapse>
             </Container>
           </Navbar>
-          <Container>
-            <Row></Row>
-            <Row>
-              <Col>
-                <Route path="/" exact><Home /></Route>
-                <Switch>
-                  <Route path="/signature-generator"><GenerateSignature /></Route>
-                  <Route path="/disclaimer-generator"><GenerateDisclaimer /></Route>
-                </Switch>
-              </Col>
-            </Row>
+          <Container className="lp-contentContainer">
+            <Route path="/" exact><Home /></Route>
+            <Switch>
+              <Route path="/signature-generator"><GenerateSignature /></Route>
+              <Route path="/disclaimer-generator"><GenerateDisclaimer /></Route>
+            </Switch>
           </Container>
         </Container>
       </Router>

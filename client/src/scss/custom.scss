@@ -22,6 +22,15 @@ html {
     font-weight: 600;
 }
 
+.lp-contentContainer {
+    margin-top: 1em;
+}
+
+code {
+    font-size: 10px !important;
+    line-height: 8px;
+}
+
 $navbar-dark-active-color: $lp-orange;
 $navbar-dark-toggler-border-color: $lp-orange;
 $dropdown-link-active-bg: $lp-orange;
