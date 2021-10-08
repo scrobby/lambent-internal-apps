@@ -9,7 +9,8 @@ export default class GenerateSignature extends Component {
         this.state = {
             fullName: "",
             jobTitle: "",
-            phone: ""
+            phone: "",
+            showLandline: true
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -27,7 +28,7 @@ export default class GenerateSignature extends Component {
       }
 
     render() {
-        var dangerousHtml = '<p style="font-size:12px;font-family:Calibri, Arial, Sans-Serif;"><strong><span style="color: #333;">' + (this.state.fullName ? this.state.fullName : 'Full Name') + ' |</span>&nbsp;<span style="color: #fd6320;">' + (this.state.jobTitle ? this.state.jobTitle : 'Job Title') + '</span></strong><br /> <span style="color: #555;">The Warehouse,&nbsp;128 Gloucester Road, Brighton, BN1 4AF</span> <br /><span style="color: #555;">T:</span>&nbsp;<a href="tel:01273 789090" style="color: #1b9ce2;">01273 789090</a><br /><span style="color: #555;">M:</span>&nbsp;<a href="tel:' + (this.state.phone ? this.state.phone : '07123 456789') + '" style="color: #1b9ce2;">' + (this.state.phone ? this.state.phone : '07123 456789') + '</a><br /><span style="color: #555;">W:</span>&nbsp;<span style="color: #1b9ce2;"><a style="color: #1b9ce2;" title="Lambent Productions" href="http://lambentproductions.co.uk/" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" data-linkindex="2">lambentproductions.co.uk</a></span></p>'
+        var signatureHTML = '<p style="font-size:12px;font-family:Calibri, Arial, Sans-Serif;"><strong><span style="color: #333;">' + (this.state.fullName ? this.state.fullName : 'Full Name') + ' |</span>&nbsp;<span style="color: #fd6320;">' + (this.state.jobTitle ? this.state.jobTitle : 'Job Title') + '</span></strong><br /> <span style="color: #555;">The Warehouse,&nbsp;128 Gloucester Road, Brighton, BN1 4AF</span> <br />' + (this.state.showLandline ? '<span style="color: #555;">T:</span>&nbsp;<a href="tel:01273789090" style="color: #1b9ce2;">01273 789090</a><br />' : '') + (this.state.phone ? '<span style="color: #555;">M:</span>&nbsp;<a href="tel:' + this.state.phone.replace(/\s/g, '') + '" style="color: #1b9ce2;">' + this.state.phone + '</a><br />' : '') + '<span style="color: #555;">W:</span>&nbsp;<span style="color: #1b9ce2;"><a style="color: #1b9ce2;" title="Lambent Productions" href="http://lambentproductions.co.uk/" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" data-linkindex="2">lambentproductions.co.uk</a></span></p>'
 
         return (
             <>
@@ -54,13 +55,16 @@ export default class GenerateSignature extends Component {
                             <Form.Label>Mobile Number</Form.Label>
                             <Form.Control type="Tel" placeholder="07123456789" name="phone" onChange={this.handleChange} value={this.state.phone}/>
                         </Form.Group>
+                        <Form.Group controlId="signatureForm.Landline">
+                            <Form.Check type="Checkbox" name="showLandline" onChange={this.handleChange} checked={this.state.showLandline} label="Show Landline"/>
+                        </Form.Group>
                     </Form>
                 </Col>
                 <Col md={8} sm={12}>
                     <Row>
                         <Col>
                             <h3>Formatted Text</h3>
-                            <div dangerouslySetInnerHTML={{ __html: dangerousHtml}}/>
+                            <div dangerouslySetInnerHTML={{ __html: signatureHTML}}/>
                         </Col>
                     </Row>
                     <hr/>
@@ -68,7 +72,7 @@ export default class GenerateSignature extends Component {
                         <Col>
                             <h3>Raw HTML</h3>
                             <code>
-                                {dangerousHtml}
+                                {signatureHTML}
                             </code>
                         </Col>
                     </Row>
