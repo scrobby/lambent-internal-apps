@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-export default class GenerateSignature extends Component {
+export default class GenerateDisclaimer extends Component {
     constructor(props) {
         super(props)
         

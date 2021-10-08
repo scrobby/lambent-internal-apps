@@ -1,69 +1,180 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-
 import { LinkContainer } from 'react-router-bootstrap'
-
-import './scss/App.scss'
-
-import { Container, Navbar, Nav, Row, Col } from 'react-bootstrap'
+import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col, Button } from 'react-bootstrap'
 
 import Home from './components/home.js'
 import GenerateDisclaimer from './components/generate-disclaimer.js'
-import GenerateSignature from './components/generate-signature.js'
+import { GenerateSignature } from './components/generate-signature.js'
 
-console.log("Got here!")
-console.log(Home)
+import { useIsAuthenticated, useMsal } from "@azure/msal-react"
+import { SignInButton } from "./components/azure/SignInButton"
+import { SignOutButton } from "./components/azure/SignOutButton"
+import { loginRequest } from './authConfig'
+
+import './scss/App.scss'
+
+let allowedTenant = "ac60b3b8-0994-44b8-aa65-c43116bb0d72"
 
 export default class App extends Component {
   constructor() {
     super()
 
     this.state = {
-      exampleVariable: true
+      isLoggedIn: false,
+      lpUsername: null,
+      lpName: null,
+      lpHomeAccountID: null,
+      lpIdTokenClaims: null
     }
 
-    this.myFunction = this.myFunction.bind(this)
+    this.onAuthenticated = this.onAuthenticated.bind(this)
   }
 
-  myFunction() {
-    console.log("Hello there")
+  onAuthenticated(userAccountInfo) {
+    console.log(userAccountInfo)
+    this.setState({
+      isLoggedIn: true,
+      lpUsername: userAccountInfo.username,
+      lpName: userAccountInfo.name,
+      lpHomeAccountID: userAccountInfo.homeAccountId,
+      lpIdTokenClaims: userAccountInfo.lpIdTokenClaims
+    })
   }
 
   render() {
+
     return (
       <Router>
-        <Container fluid className="lp-mainContainer">
-          <Navbar bg="dark" variant="dark" expand="lg">
-            <Container>
-              <LinkContainer to="/">
-                <Navbar.Brand className="lp-navbarBrand">Lambent Tools</Navbar.Brand>
-              </LinkContainer>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav >
-                  <LinkContainer exact="true" to="/">
-                    <Nav.Link>Home</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer to="/signature-generator">
-                    <Nav.Link>Signature Generator</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer to="/disclaimer-generator">
-                    <Nav.Link>Disclaimer Generator</Nav.Link>
-                  </LinkContainer>
-                </Nav>
-              </Navbar.Collapse>
-            </Container>
-          </Navbar>
-          <Container className="lp-contentContainer">
-            <Route path="/" exact><Home /></Route>
-            <Switch>
-              <Route path="/signature-generator"><GenerateSignature /></Route>
-              <Route path="/disclaimer-generator"><GenerateDisclaimer /></Route>
-            </Switch>
-          </Container>
-        </Container>
+        <PageLayout lpName={this.state.lpName} />
       </Router>
-
     )
   }
+}
+
+const PageLayout = (props) => {
+  const isAuthenticated = useIsAuthenticated()
+
+  console.log('Authenticated: ' + isAuthenticated)
+
+  return (
+    <Container fluid className="lp-mainContainer">
+      <LPNavBar isLoggedIn={isAuthenticated} userName={props.lpName}/>
+      <Container className="lp-contentContainer">
+        <LPRouter isLoggedIn={isAuthenticated} />
+      </Container>
+    </Container>
+  )
+}
+
+function LPNavBar(props) {
+  return (
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Container>
+        <LinkContainer to="/">
+          <Navbar.Brand className="lp-navbarBrand">Lambent Tools</Navbar.Brand>
+        </LinkContainer>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <LinkContainer exact to="/">
+              <Nav.Link>Home</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/signature-generator">
+              <Nav.Link>Signature Generator</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/disclaimer-generator">
+              <Nav.Link>Disclaimer Generator</Nav.Link>
+            </LinkContainer>
+          </Nav>
+          <LPNavBarUser key={'IsLogged' + props.isLoggedIn} {...props} />
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  )
+}
+
+const LPNavBarUser = (props) => {
+  const { instance } = useMsal()
+
+  if (props.isLoggedIn) {
+    return (
+      <Nav>
+        <NavDropdown title={GetUserName()}>
+          <NavDropdown.Item onClick={() => handleLogout(instance)}>Log Out</NavDropdown.Item>
+        </NavDropdown>
+      </Nav>
+    )
+  } else {
+    return (
+      <Nav className="ml-auto">
+        <Nav.Item>
+          <SignInButton/>
+        </Nav.Item>
+      </Nav>
+    )
+  }
+}
+
+function LPRouter(props) {
+  console.log('Is logged: ' + props.isLoggedIn)
+  console.log('Is logged tho: ' + props.isLoggedInTho)
+  if (props.isLoggedIn) {
+    return (
+      <>
+        <Route path="/" exact><Home /></Route>
+        <Switch>
+          <Route path="/signature-generator"><GenerateSignature /></Route>
+          <Route path="/disclaimer-generator"><GenerateDisclaimer /></Route>
+        </Switch>
+      </>
+    )
+  } else {
+    return (
+      <>
+        <Jumbotron>
+          <Row style={{textAlign: "center"}}>
+            <Col>
+            <h1>Login Needed</h1>
+            <p>You must be logged in if you want to view this page.</p>
+            <br />
+            <SignInButton />
+            </Col>
+          </Row>
+        </Jumbotron>
+      </>
+    )
+  }
+
+}
+
+function GetUserName() {
+  const { instance, accounts, inProgress } = useMsal();
+    const [accessToken, setAccessToken] = useState(null)
+
+    const name = accounts[0] && accounts[0].name
+
+    function RequestAccessToken() {
+        const request = {
+            ...loginRequest,
+            account: accounts[0]
+        };
+
+        // Silently acquires an access token which is then attached to a request for Microsoft Graph data
+        instance.acquireTokenSilent(request).then((response) => {
+            setAccessToken(response.accessToken)
+        }).catch((e) => {
+            instance.acquireTokenPopup(request).then((response) => {
+                setAccessToken(response.accessToken)
+            })
+        })
+    }
+
+    return name
+}
+
+function handleLogout(instance) {
+  instance.logoutPopup().catch(e => {
+      console.error(e);
+  });
 }
