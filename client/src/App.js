@@ -1,7 +1,7 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col, Button } from 'react-bootstrap'
+import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col } from 'react-bootstrap'
 
 import Home from './components/home.js'
 import GenerateDisclaimer from './components/generate-disclaimer.js'
@@ -9,12 +9,6 @@ import { GenerateSignature } from './components/generate-signature.js'
 
 import { useIsAuthenticated, useMsal } from "@azure/msal-react"
 import { SignInButton } from "./components/azure/SignInButton"
-import { SignOutButton } from "./components/azure/SignOutButton"
-import { loginRequest } from './authConfig'
-
-import './scss/App.scss'
-
-let allowedTenant = "ac60b3b8-0994-44b8-aa65-c43116bb0d72"
 
 export default class App extends Component {
   constructor() {
@@ -59,7 +53,7 @@ const PageLayout = (props) => {
 
   return (
     <Container fluid className="lp-mainContainer">
-      <LPNavBar isLoggedIn={isAuthenticated} userName={props.lpName}/>
+      <LPNavBar isLoggedIn={isAuthenticated} userName={props.lpName} />
       <Container className="lp-contentContainer">
         <LPRouter isLoggedIn={isAuthenticated} />
       </Container>
@@ -76,7 +70,7 @@ function LPNavBar(props) {
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="me-auto" hidden={!props.isLoggedIn}>
             <LinkContainer exact to="/">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
@@ -109,7 +103,7 @@ const LPNavBarUser = (props) => {
     return (
       <Nav className="ml-auto">
         <Nav.Item>
-          <SignInButton/>
+          <SignInButton />
         </Nav.Item>
       </Nav>
     )
@@ -133,12 +127,12 @@ function LPRouter(props) {
     return (
       <>
         <Jumbotron>
-          <Row style={{textAlign: "center"}}>
+          <Row style={{ textAlign: "center" }}>
             <Col>
-            <h1>Login Needed</h1>
-            <p>You must be logged in if you want to view this page.</p>
-            <br />
-            <SignInButton />
+              <h1>Login Needed</h1>
+              <p>You must be logged in if you want to view this page.</p>
+              <br />
+              <SignInButton />
             </Col>
           </Row>
         </Jumbotron>
@@ -149,32 +143,15 @@ function LPRouter(props) {
 }
 
 function GetUserName() {
-  const { instance, accounts, inProgress } = useMsal();
-    const [accessToken, setAccessToken] = useState(null)
+  const { accounts } = useMsal()
 
-    const name = accounts[0] && accounts[0].name
+  const name = accounts[0] && accounts[0].name
 
-    function RequestAccessToken() {
-        const request = {
-            ...loginRequest,
-            account: accounts[0]
-        };
-
-        // Silently acquires an access token which is then attached to a request for Microsoft Graph data
-        instance.acquireTokenSilent(request).then((response) => {
-            setAccessToken(response.accessToken)
-        }).catch((e) => {
-            instance.acquireTokenPopup(request).then((response) => {
-                setAccessToken(response.accessToken)
-            })
-        })
-    }
-
-    return name
+  return name
 }
 
 function handleLogout(instance) {
   instance.logoutPopup().catch(e => {
-      console.error(e);
+    console.error(e);
   });
 }

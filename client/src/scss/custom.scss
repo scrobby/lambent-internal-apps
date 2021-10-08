@@ -1,3 +1,5 @@
+@import "~bootstrap/scss/bootstrap";
+
 $lp-orange: #f05c00;
 
 $min-contrast-ratio: 3;
@@ -18,8 +20,31 @@ html {
     padding: 0px !important;
 }
 
+.loadedView {
+    opacity: 0;
+    transition: 2s opacity;
+}
+
+.unloadedView {
+    opacity: 1;
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+.fade-out {
+    opacity: 0 !important;
+    transition: 2s opacity;
+}
+
+.text-primary {
+    color: $lp-orange !important;
+}
+
 .lp-navbarBrand {
     font-weight: 600;
+    color: $lp-orange !important;
 }
 
 .lp-contentContainer {
@@ -34,5 +59,3 @@ code {
 $navbar-dark-active-color: $lp-orange;
 $navbar-dark-toggler-border-color: $lp-orange;
 $dropdown-link-active-bg: $lp-orange;
-
-@import "~bootstrap/scss/bootstrap";
