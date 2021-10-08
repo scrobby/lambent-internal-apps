@@ -21,19 +21,6 @@ export default class App extends Component {
       lpHomeAccountID: null,
       lpIdTokenClaims: null
     }
-
-    this.onAuthenticated = this.onAuthenticated.bind(this)
-  }
-
-  onAuthenticated(userAccountInfo) {
-    console.log(userAccountInfo)
-    this.setState({
-      isLoggedIn: true,
-      lpUsername: userAccountInfo.username,
-      lpName: userAccountInfo.name,
-      lpHomeAccountID: userAccountInfo.homeAccountId,
-      lpIdTokenClaims: userAccountInfo.lpIdTokenClaims
-    })
   }
 
   render() {
@@ -71,13 +58,10 @@ function LPNavBar(props) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto" hidden={!props.isLoggedIn}>
-            <LinkContainer exact to="/">
-              <Nav.Link>Home</Nav.Link>
-            </LinkContainer>
             <LinkContainer to="/signature-generator">
               <Nav.Link>Signature Generator</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/disclaimer-generator">
+            <LinkContainer to="/disclaimer-generator" hidden="true">
               <Nav.Link>Disclaimer Generator</Nav.Link>
             </LinkContainer>
           </Nav>
@@ -94,7 +78,9 @@ const LPNavBarUser = (props) => {
   if (props.isLoggedIn) {
     return (
       <Nav>
-        <NavDropdown title={GetUserName()}>
+        <NavDropdown id="userDropdown" menuVariant="dark" title={GetUserName()} dark alignRight>
+          <NavDropdown.Header><GetUserEmail/></NavDropdown.Header>
+          {/* <NavDropdown.Divider/> */}
           <NavDropdown.Item onClick={() => handleLogout(instance)}>Log Out</NavDropdown.Item>
         </NavDropdown>
       </Nav>
@@ -148,6 +134,16 @@ function GetUserName() {
   const name = accounts[0] && accounts[0].name
 
   return name
+}
+
+function GetUserEmail() {
+  const { accounts } = useMsal()
+
+  console.log(JSON.stringify(accounts[0]))
+
+  const email = accounts[0] && accounts[0].username
+
+  return email
 }
 
 function handleLogout(instance) {
