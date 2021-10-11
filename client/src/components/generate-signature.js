@@ -66,11 +66,11 @@ export function GenerateSignature(props) {
                                     }
                                 } value={mobile} />
                             </Form.Group>
-                            <Form.Group controlId="signatureForm.ShowMobile">
-                                <Form.Check type="Checkbox" name="showMobile" onChange={e => setShowMobile(e.target.checked)} checked={showMobile} label="Show Mobile" />
-                            </Form.Group>
                             <Form.Group controlId="signatureForm.ShowLandline">
                                 <Form.Check type="Checkbox" name="showLandline" onChange={e => setShowLandline(e.target.checked)} checked={showLandline} label="Show Landline" />
+                            </Form.Group>
+                            <Form.Group controlId="signatureForm.ShowMobile">
+                                <Form.Check type="Checkbox" name="showMobile" onChange={e => setShowMobile(e.target.checked)} checked={showMobile} label="Show Mobile" />
                             </Form.Group>
                             <Form.Group controlId="signatureForm.ShowEmail">
                                 <Form.Check type="Checkbox" name="showEmail" onChange={e => setShowEmail(e.target.checked)} checked={showEmail} label="Show Email" />
