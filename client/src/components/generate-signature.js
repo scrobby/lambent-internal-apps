@@ -13,10 +13,11 @@ export function GenerateSignature(props) {
     const [fullName, setFullName] = useState("")
     const [jobTitle, setJobTitle] = useState("")
     const [mobile, setMobile] = useState("")
-    const [showMobile, setShowMobile] = useState(true)
-    const [showLandline, setShowLandline] = useState(true)
-    const [showEmail, setShowEmail] = useState(false)
     const [userEmail, setUserEmail] = useState("")
+    const [showLandline, setShowLandline] = useState(true)
+    const [showMobile, setShowMobile] = useState(true)
+    const [showEmail, setShowEmail] = useState(false)
+    const [showWebsite, setShowWebsite] = useState(true)
 
     let account = accounts && accounts[0]
 
@@ -36,6 +37,7 @@ export function GenerateSignature(props) {
     }, [])
 
     var signatureHTML = '<p style="font-size:12px;font-family:Calibri, Arial, Sans-Serif;"><strong><span style="color: #333;">' + (fullName ? fullName : 'Full Name') + ' |</span>&nbsp;<span style="color: #fd6320;">' + (jobTitle ? jobTitle : 'Job Title') + '</span></strong><br /> <span style="color: #555;">The Warehouse,&nbsp;128 Gloucester Road, Brighton, BN1 4AF</span> <br />' + (showLandline ? '<span style="color: #555;">T:</span>&nbsp;<a href="tel:01273789090" style="color: #1b9ce2;">01273 789090</a><br />' : '') + (mobile && showMobile ? '<span style="color: #555;">M:</span>&nbsp;<a href="tel:' + mobile.replace(/\s/g, '') + '" style="color: #1b9ce2;">' + mobile + '</a><br />' : '') + (showEmail ? '<span style="color: #555;">E:</span>&nbsp;<a href="mailto:"' + userEmail + ' style="color: #1b9ce2;">' + userEmail + '</a><br />' : '') + '<span style="color: #555;">W:</span>&nbsp;<span style="color: #1b9ce2;"><a style="color: #1b9ce2;" title="Lambent Productions" href="http://lambentproductions.co.uk/" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" data-linkindex="2">lambentproductions.co.uk</a></span></p>'
+
 
     return (
         <>
@@ -66,17 +68,22 @@ export function GenerateSignature(props) {
                                     }
                                 } value={mobile} />
                             </Form.Group>
-                            <Form.Group controlId="signatureForm.ShowLandline">
-                                <Form.Check type="Checkbox" name="showLandline" onChange={e => setShowLandline(e.target.checked)} checked={showLandline} label="Show Landline" />
-                            </Form.Group>
-                            <Form.Group controlId="signatureForm.ShowMobile">
-                                <Form.Check type="Checkbox" name="showMobile" onChange={e => setShowMobile(e.target.checked)} checked={showMobile} label="Show Mobile" />
-                            </Form.Group>
-                            <Form.Group controlId="signatureForm.ShowEmail">
-                                <Form.Check type="Checkbox" name="showEmail" onChange={e => setShowEmail(e.target.checked)} checked={showEmail} label="Show Email" />
-                            </Form.Group>
+                            <Row>
+                                <Form.Group as={Col} lg={6} md={12} sm={6} xs={12} controlId="signatureForm.ShowLandline">
+                                    <Form.Check type="Checkbox" name="showLandline" onChange={e => setShowLandline(e.target.checked)} checked={showLandline} label="Show Landline" />
+                                </Form.Group>
+                                <Form.Group as={Col} lg={6} md={12} sm={6} xs={12} controlId="signatureForm.ShowMobile">
+                                    <Form.Check type="Checkbox" name="showMobile" onChange={e => setShowMobile(e.target.checked)} checked={showMobile} label="Show Mobile" />
+                                </Form.Group>
+                                <Form.Group as={Col} lg={6} md={12} sm={6} xs={12} controlId="signatureForm.ShowEmail">
+                                    <Form.Check type="Checkbox" name="showEmail" onChange={e => setShowEmail(e.target.checked)} checked={showEmail} label="Show Email" />
+                                </Form.Group>
+                                <Form.Group as={Col} lg={6} md={12} sm={6} xs={12} controlId="signatureForm.ShowWebsite">
+                                    <Form.Check type="Checkbox" name="showWebsite" onChange={e => setShowWebsite(e.target.checked)} checked={showWebsite} label="Show Website" />
+                                </Form.Group>
+                            </Row>
                         </Form>
-                        <hr className="d-md-none d-block"/>
+                        <hr className="d-md-none d-block" />
                     </Col>
                     <Col md={8} sm={12}>
                         <Row>
