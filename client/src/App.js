@@ -7,8 +7,10 @@ import Home from './components/home.js'
 import GenerateDisclaimer from './components/generate-disclaimer.js'
 import { GenerateSignature } from './components/generate-signature.js'
 
+
 import { useIsAuthenticated, useMsal } from "@azure/msal-react"
 import { SignInButton } from "./components/azure/SignInButton"
+import LoggedOut from './components/loggedout.js'
 
 export default class App extends Component {
   constructor() {
@@ -106,6 +108,7 @@ function LPRouter(props) {
         <Switch>
           <Route path="/signature-generator"><GenerateSignature /></Route>
           <Route path="/disclaimer-generator"><GenerateDisclaimer /></Route>
+          <Route path="/logged-out"><LoggedOut /></Route>
         </Switch>
       </>
     )
