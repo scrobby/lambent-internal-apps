@@ -2,7 +2,7 @@ export const msalConfig = {
     auth: {
       clientId: "fa02116e-94e9-4eda-9850-11e35e9d5f4c",
       authority: "https://login.microsoft.com/lambentprods.onmicrosoft.com",
-      redirectUri: "http://localhost:3000",
+      redirectUri: process.env.REACT_APP_URL,
     },
     cache: {
       cacheLocation: "sessionStorage", // This configures where your cache will be stored

@@ -146,7 +146,7 @@ function GetUserEmail() {
 
   const email = accounts[0] && accounts[0].username
 
-  return email
+  return email ? email : null
 }
 
 function handleLogout(instance) {
