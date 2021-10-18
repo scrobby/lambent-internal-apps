@@ -40,18 +40,17 @@ function NUStep(props) {
                         <Col>
                             <h1>{props.details.title}</h1>
 
-                            <p>
-                                {/* <ReactMarkdown children={props.details.text}/> */}
-                            </p>
+                                <ReactMarkdown children={props.details.text}/>
                         </Col>
                     </Row>
                     <Row>
                         {props.details.links ?
-                            props.details.links.map(link => <NULinkButton link={link} />) :
+                            props.details.links.map(link => <NULinkButton key={link.value} link={link} />) :
                             null
                         }
                     </Row>
                 </Col>
+                <hr className="d-block d-lg-none" style={{marginTop: "1em"}}/>
                 <Col lg={6} md={12} hidden={!hasSecondaryContent}>
                     {props.details.image ?
                         <Image src={'/new-user-images/' + props.details.image} rounded fluid /> :
@@ -72,7 +71,7 @@ function NUNavButtons(props) {
             <Row>
                 <Col xs={4}>
                     <LinkContainer hidden={!prev} to={prev ? prev : ""}>
-                        <Button >Previous</Button>
+                        <Button>Previous</Button>
                     </LinkContainer>
                 </Col>
                 <Col xs={4} className="justify-content-center my-auto d-flex d-sm-none">
@@ -100,7 +99,7 @@ function NULinkButton(props) {
         case 'internal':
             return('HAVE NOT SET UP INTERNAL LINKS YET')
         default:
-            return (<Col className="d-flex justify-content-center"><Button href={currLink.value} target="_blank">{currLink.text}</Button></Col>)
+            return (<Col className="d-flex justify-content-center" ><Button href={currLink.value} target="_blank" style={{width: "100%", margin: "0em 0.2em 0em 0.2em"}}>{currLink.text}</Button></Col>)
     }
 }
 

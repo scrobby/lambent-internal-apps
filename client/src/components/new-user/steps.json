@@ -32,22 +32,10 @@
             }
         ]
     },
-    "#template-to-delete": {
-        "title": "Title",
-        "text": "BodyText",
-        "image": "image.jpeg",
-        "links": [
-            {
-                "text": "LinkOne",
-                "value": "https://linkone.org",
-                "type": "external"
-            },
-            {
-                "text": "LinkTwo",
-                "value": "#a-page",
-                "type": "internal"
-            }
-        ]
+    "#set-password": {
+        "title": "Set Your Password",
+        "text": "Next, you'll need to set a password. ",
+        "image": "image.jpeg"
     },
     "#template-to-delete1": {
         "title": "Title",
