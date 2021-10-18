@@ -1,0 +1,137 @@
+{
+    "#welcome": {
+        "title": "Welcome to Lambent!",
+        "text": "Follow these steps to started with Office 365 and Teams and set them up on your computer and phone.\nYou'll need an iOS or Android phone with an active internet connection to get set up. It's easiest if you have this window open on a computer or tablet, but you can follow the instructions on your phone.\nPress **Next** when you're ready"
+    },
+    "#download-authenticator": {
+        "title": "Download the Authenticator App",
+        "text": "Before you sign in, you'll need to download the Authenticator app on your phone. Scan the appropriate QR code or use one of the links below to download the app.",
+        "image": "authenticator-apps.png",
+        "links": [
+            {
+                "text": "For Android",
+                "value": "https://play.google.com/store/apps/details?id=com.azure.authenticator&hl=en_GB&gl=US",
+                "type": "external"
+            },
+            {
+                "text": "For iOS",
+                "value": "https://apps.apple.com/us/app/microsoft-authenticator/id983156458",
+                "type": "external"
+            }
+        ]
+    },
+    "#sign-in": {
+        "title": "Sign in to 365",
+        "image": "username-and-password.gif",
+        "text": "Next, you'll need to sign in to Office 365 using the login details sent to you.\nClick on the link below, enter your username and password, then come back to this tutorial.",
+        "links": [
+            {
+                "text": "Sign In",
+                "value": "https://play.google.com/store/apps/details?id=com.azure.authenticator&hl=en_GB&gl=US",
+                "type": "external"
+            }
+        ]
+    },
+    "#template-to-delete": {
+        "title": "Title",
+        "text": "BodyText",
+        "image": "image.jpeg",
+        "links": [
+            {
+                "text": "LinkOne",
+                "value": "https://linkone.org",
+                "type": "external"
+            },
+            {
+                "text": "LinkTwo",
+                "value": "#a-page",
+                "type": "internal"
+            }
+        ]
+    },
+    "#template-to-delete1": {
+        "title": "Title",
+        "text": "BodyText",
+        "image": "image.jpeg",
+        "links": [
+            {
+                "text": "LinkOne",
+                "value": "https://linkone.org",
+                "type": "external"
+            },
+            {
+                "text": "LinkTwo",
+                "value": "#a-page",
+                "type": "internal"
+            }
+        ]
+    },
+    "#template-to-delete2": {
+        "title": "Title",
+        "text": "BodyText",
+        "image": "image.jpeg",
+        "links": [
+            {
+                "text": "LinkOne",
+                "value": "https://linkone.org",
+                "type": "external"
+            },
+            {
+                "text": "LinkTwo",
+                "value": "#a-page",
+                "type": "internal"
+            }
+        ]
+    },
+    "#template-to-delete3": {
+        "title": "Title",
+        "text": "BodyText",
+        "image": "image.jpeg",
+        "links": [
+            {
+                "text": "LinkOne",
+                "value": "https://linkone.org",
+                "type": "external"
+            },
+            {
+                "text": "LinkTwo",
+                "value": "#a-page",
+                "type": "internal"
+            }
+        ]
+    },
+    "#template-to-delete4": {
+        "title": "Title",
+        "text": "BodyText",
+        "image": "image.jpeg",
+        "links": [
+            {
+                "text": "LinkOne",
+                "value": "https://linkone.org",
+                "type": "external"
+            },
+            {
+                "text": "LinkTwo",
+                "value": "#a-page",
+                "type": "internal"
+            }
+        ]
+    },
+    "#template-to-delete5": {
+        "title": "Title",
+        "text": "BodyText",
+        "image": "image.jpeg",
+        "links": [
+            {
+                "text": "LinkOne",
+                "value": "https://linkone.org",
+                "type": "external"
+            },
+            {
+                "text": "LinkTwo",
+                "value": "#a-page",
+                "type": "internal"
+            }
+        ]
+    }
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { LinkContainer, Link } from 'react-router-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col, Button } from 'react-bootstrap'
 
 import Home from './components/home.js'
@@ -67,7 +67,7 @@ function LPNavBar(props) {
             <LinkContainer to="new-user">
               <Nav.Link>New User Setup</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/disclaimer-generator" hidden="true">
+            <LinkContainer to="/disclaimer-generator" hidden={true}>
               <Nav.Link>Disclaimer Generator</Nav.Link>
             </LinkContainer>
           </Nav>
@@ -118,7 +118,7 @@ function LPRouter(props) {
     return (
       <>
         <Switch>
-          <Route path="/new-user">Something else</Route>
+          <Route path="/new-user"><NewUser/></Route>
           <Route><NotLoggedInHome /></Route>
         </Switch>
       </>
