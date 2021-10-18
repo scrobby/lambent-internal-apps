@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { LinkContainer } from 'react-router-bootstrap'
-import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col } from 'react-bootstrap'
+import { LinkContainer, Link } from 'react-router-bootstrap'
+import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col, Button } from 'react-bootstrap'
 
 import Home from './components/home.js'
 import GenerateDisclaimer from './components/generate-disclaimer.js'
 import { GenerateSignature } from './components/generate-signature.js'
+import { NewUser } from './components/new-user/index.js'
 
 
 import { useIsAuthenticated, useMsal } from "@azure/msal-react"
@@ -59,9 +60,12 @@ function LPNavBar(props) {
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto" hidden={!props.isLoggedIn}>
-            <LinkContainer to="/signature-generator">
+          <Nav className="me-auto">
+            <LinkContainer to="/signature-generator" hidden={!props.isLoggedIn}>
               <Nav.Link>Signature Generator</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="new-user">
+              <Nav.Link>New User Setup</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/disclaimer-generator" hidden="true">
               <Nav.Link>Disclaimer Generator</Nav.Link>
@@ -81,7 +85,7 @@ const LPNavBarUser = (props) => {
     return (
       <Nav>
         <NavDropdown id="userDropdown" menuVariant="dark" title={GetUserName()} dark alignRight>
-          <NavDropdown.Header><GetUserEmail/></NavDropdown.Header>
+          <NavDropdown.Header><GetUserEmail /></NavDropdown.Header>
           {/* <NavDropdown.Divider/> */}
           <NavDropdown.Item onClick={() => handleLogout(instance)}>Log Out</NavDropdown.Item>
         </NavDropdown>
@@ -99,8 +103,6 @@ const LPNavBarUser = (props) => {
 }
 
 function LPRouter(props) {
-  console.log('Is logged: ' + props.isLoggedIn)
-  console.log('Is logged tho: ' + props.isLoggedInTho)
   if (props.isLoggedIn) {
     return (
       <>
@@ -115,20 +117,41 @@ function LPRouter(props) {
   } else {
     return (
       <>
-        <Jumbotron>
-          <Row style={{ textAlign: "center" }}>
-            <Col>
-              <h1>Login Needed</h1>
-              <p>You must be logged in if you want to view this page.</p>
-              <br />
-              <SignInButton />
-            </Col>
-          </Row>
-        </Jumbotron>
+        <Switch>
+          <Route path="/new-user">Something else</Route>
+          <Route><NotLoggedInHome /></Route>
+        </Switch>
       </>
     )
   }
 
+}
+
+function NotLoggedInHome() {
+  return (
+    <>
+      <Row style={{ textAlign: "center" }}>
+        <Col md={6} sm={12}>
+          <Jumbotron style={{ height: "90%" }}>
+            <h1>New Users</h1>
+            <p>Get up and running by pressing the button below</p>
+            <br />
+            <LinkContainer to="/new-user">
+              <Button>Get Started</Button>
+            </LinkContainer>
+          </Jumbotron>
+        </Col>
+        <Col md={6} sm={12}>
+          <Jumbotron style={{ height: "90%" }}>
+            <h1>Existing Users</h1>
+            <p>You must be logged in if you want to view this page.</p>
+            <br />
+            <SignInButton />
+          </Jumbotron>
+        </Col>
+      </Row>
+    </>
+  )
 }
 
 function GetUserName() {
