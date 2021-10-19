@@ -13,6 +13,11 @@ import { useIsAuthenticated, useMsal } from "@azure/msal-react"
 import { SignInButton } from "./components/azure/SignInButton"
 import LoggedOut from './components/loggedout.js'
 
+const allowedDisclaimerUserIDs = [
+  "c722462b-51ce-446f-a9a5-37ff474323f0",
+  "3145a069-f9c1-4240-9434-385498de8f33"
+]
+
 export default class App extends Component {
   constructor() {
     super()
@@ -30,7 +35,7 @@ export default class App extends Component {
 
     return (
       <Router>
-        <PageLayout lpName={this.state.lpName} />
+        <PageLayout lpName={this.state.lpName} lpHomeAccountID={this.state.lpHomeAccountID}/>
       </Router>
     )
   }
@@ -43,7 +48,7 @@ const PageLayout = (props) => {
 
   return (
     <Container fluid className="lp-mainContainer">
-      <LPNavBar isLoggedIn={isAuthenticated} userName={props.lpName} />
+      <LPNavBar isLoggedIn={isAuthenticated} userName={props.lpName} lpHomeAccountID={props.lpHomeAccountID}/>
       <Container className="lp-contentContainer">
         <LPRouter isLoggedIn={isAuthenticated} />
       </Container>
@@ -52,6 +57,12 @@ const PageLayout = (props) => {
 }
 
 function LPNavBar(props) {
+  const { accounts } = useMsal()
+
+  let accountID = accounts[0] && accounts[0].homeAccountID
+
+  console.log("Account ID: " + JSON.stringify(accountID))
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -67,7 +78,7 @@ function LPNavBar(props) {
             <LinkContainer to="new-user">
               <Nav.Link>New User Setup</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/disclaimer-generator" hidden={true}>
+            <LinkContainer to="/disclaimer-generator" hidden={allowedDisclaimerUserIDs.indexOf(props.lpHomeAccountID) >= 0 ? false : true}>
               <Nav.Link>Disclaimer Generator</Nav.Link>
             </LinkContainer>
           </Nav>
@@ -110,6 +121,7 @@ function LPRouter(props) {
         <Switch>
           <Route path="/signature-generator"><GenerateSignature /></Route>
           <Route path="/disclaimer-generator"><GenerateDisclaimer /></Route>
+          <Route path="/new-user"><NewUser/></Route>
           <Route path="/logged-out"><LoggedOut /></Route>
         </Switch>
       </>
