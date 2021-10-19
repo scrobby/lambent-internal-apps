@@ -1,4 +1,4 @@
-import { Col, Row, Jumbotron, Button, Image } from "react-bootstrap"
+import { Col, Row, Jumbotron, Button, Image, Container } from "react-bootstrap"
 
 import { useLocation, useHistory } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -10,7 +10,7 @@ export function NewUser(props) {
     const currentStep = useLocation().hash
     const history = useHistory()
 
-    if (!currentStep || currentStep.length === 1) {
+    if (!currentStep || currentStep.length < 2) {
         history.push('#welcome')
         return ('')
     }
@@ -20,11 +20,13 @@ export function NewUser(props) {
 
     return (
         <>
-            <Jumbotron style={{ backgroundColor: "white" }}>
+            {/* <Jumbotron style={{ backgroundColor: "white" }}> */}
+            <Container>
                 <NUStep details={steps[currentStep]} />
                 <hr />
                 <NUNavButtons currentStep={currentStep} stepKeys={stepKeys} prevKey={prevKey(currentStep, stepKeys)} />
-            </Jumbotron>
+            </Container>
+            {/* </Jumbotron> */}
         </>
     )
 }
@@ -51,9 +53,9 @@ function NUStep(props) {
                     </Row>
                 </Col>
                 <hr className="d-block d-lg-none" style={{marginTop: "1em"}}/>
-                <Col lg={6} md={12} hidden={!hasSecondaryContent}>
+                <Col lg={6} md={12} hidden={!hasSecondaryContent} className="d-block justify-content-center">
                     {props.details.image ?
-                        <Image src={'/new-user-images/' + props.details.image} rounded fluid /> :
+                        <Image src={'/new-user-images/' + props.details.image} style={{maxHeight: "80vh"}} rounded fluid className="mx-auto d-block"/> :
                         null
                     }
                 </Col>
