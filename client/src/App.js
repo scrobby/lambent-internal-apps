@@ -72,11 +72,11 @@ function LPNavBar(props) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <LinkContainer to="/signature-generator" hidden={!props.isLoggedIn}>
-              <Nav.Link>Signature Generator</Nav.Link>
-            </LinkContainer>
             <LinkContainer to="new-user">
               <Nav.Link>New User Setup</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/signature-generator" hidden={!props.isLoggedIn}>
+              <Nav.Link>Signature Generator</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/disclaimer-generator" hidden={allowedDisclaimerUserIDs.indexOf(accountID) >= 0 ? false : true}>
               <Nav.Link>Disclaimer Generator</Nav.Link>
