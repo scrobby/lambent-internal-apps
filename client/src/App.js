@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col, Button } from 'react-bootstrap'
+import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col } from 'react-bootstrap'
 
 import Home from './components/home.js'
 import GenerateDisclaimer from './components/generate-disclaimer.js'
 import { GenerateSignature } from './components/generate-signature.js'
-import { NewUser } from './components/new-user/index.js'
 
 
 import { useIsAuthenticated, useMsal } from "@azure/msal-react"
