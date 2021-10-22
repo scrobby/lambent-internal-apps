@@ -59,7 +59,7 @@ const PageLayout = (props) => {
 function LPNavBar(props) {
   const { accounts } = useMsal()
 
-  let accountID = accounts && accounts[0].localAccountId
+  let accountID = accounts[0] && accounts[0].localAccountId
 
   console.log("Account ID: " + JSON.stringify(accountID))
 
