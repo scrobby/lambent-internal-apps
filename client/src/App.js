@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col } from 'react-bootstrap'
 
 import Home from './components/home.js'
-import GenerateDisclaimer from './components/generate-disclaimer.js'
+import { GenerateDisclaimer } from './components/generate-disclaimer.js'
 import { GenerateSignature } from './components/generate-signature.js'
 
 
@@ -43,7 +43,6 @@ export default class App extends Component {
 const PageLayout = (props) => {
   const isAuthenticated = useIsAuthenticated()
 
-  console.log('Authenticated: ' + isAuthenticated)
 
   return (
     <Container fluid className="lp-mainContainer">
@@ -59,8 +58,6 @@ function LPNavBar(props) {
   const { accounts } = useMsal()
 
   let accountID = accounts[0] && accounts[0].localAccountId
-
-  console.log("Account ID: " + JSON.stringify(accountID))
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
@@ -172,4 +169,15 @@ function handleLogout(instance) {
   instance.logoutPopup().catch(e => {
     console.error(e);
   });
+}
+
+function PrivateRoute ({component: Component, authed, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => authed === true
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
+    />
+  )
 }

@@ -1,18 +1,12 @@
-import { Component } from 'react'
+import React from 'react'
 
-export default class GenerateDisclaimer extends Component {
-    constructor(props) {
-        super(props)
-        
-        this.state = {
+import { Row, Col } from 'react-bootstrap'
 
-        }
+export function GenerateDisclaimer(props) {
 
-    }
 
-    render() {
-        return (
-            <h1>Disclaimer</h1>
-        )
-    }
+
+    return (
+        <h1>Disclaimer Generator</h1>
+    )
 }
