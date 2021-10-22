@@ -14,8 +14,8 @@ import { SignInButton } from "./components/azure/SignInButton"
 import LoggedOut from './components/loggedout.js'
 
 const allowedDisclaimerUserIDs = [
-  "c722462b-51ce-446f-a9a5-37ff474323f0",
-  "3145a069-f9c1-4240-9434-385498de8f33"
+  "c722462b-51ce-446f-a9a5-37ff474323f0", // Alice's ID
+  "3145a069-f9c1-4240-9434-385498de8f33" // Chloë's ID
 ]
 
 export default class App extends Component {
@@ -59,7 +59,7 @@ const PageLayout = (props) => {
 function LPNavBar(props) {
   const { accounts } = useMsal()
 
-  let accountID = accounts[0] && accounts[0].homeAccountID
+  let accountID = accounts && accounts[0].localAccountId
 
   console.log("Account ID: " + JSON.stringify(accountID))
 
@@ -78,7 +78,7 @@ function LPNavBar(props) {
             <LinkContainer to="new-user">
               <Nav.Link>New User Setup</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/disclaimer-generator" hidden={allowedDisclaimerUserIDs.indexOf(props.lpHomeAccountID) >= 0 ? false : true}>
+            <LinkContainer to="/disclaimer-generator" hidden={allowedDisclaimerUserIDs.indexOf(accountID) >= 0 ? false : true}>
               <Nav.Link>Disclaimer Generator</Nav.Link>
             </LinkContainer>
           </Nav>
