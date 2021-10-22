@@ -72,9 +72,6 @@ function LPNavBar(props) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <LinkContainer to="new-user">
-              <Nav.Link>New User Setup</Nav.Link>
-            </LinkContainer>
             <LinkContainer to="/signature-generator" hidden={!props.isLoggedIn}>
               <Nav.Link>Signature Generator</Nav.Link>
             </LinkContainer>
@@ -121,7 +118,6 @@ function LPRouter(props) {
         <Switch>
           <Route path="/signature-generator"><GenerateSignature /></Route>
           <Route path="/disclaimer-generator"><GenerateDisclaimer /></Route>
-          <Route path="/new-user"><NewUser/></Route>
           <Route path="/logged-out"><LoggedOut /></Route>
         </Switch>
       </>
@@ -130,7 +126,6 @@ function LPRouter(props) {
     return (
       <>
         <Switch>
-          <Route path="/new-user"><NewUser/></Route>
           <Route><NotLoggedInHome /></Route>
         </Switch>
       </>
@@ -143,19 +138,9 @@ function NotLoggedInHome() {
   return (
     <>
       <Row style={{ textAlign: "center" }}>
-        <Col md={6} sm={12}>
+        <Col>
           <Jumbotron style={{ height: "90%" }}>
-            <h1>New Users</h1>
-            <p>Get up and running by pressing the button below</p>
-            <br />
-            <LinkContainer to="/new-user">
-              <Button>Get Started</Button>
-            </LinkContainer>
-          </Jumbotron>
-        </Col>
-        <Col md={6} sm={12}>
-          <Jumbotron style={{ height: "90%" }}>
-            <h1>Existing Users</h1>
+            <h1>Not Signed In</h1>
             <p>You must be logged in if you want to view this page.</p>
             <br />
             <SignInButton />
