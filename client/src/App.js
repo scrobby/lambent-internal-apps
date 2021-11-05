@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col, Button } from 'react-bootstrap'
+import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col } from 'react-bootstrap'
 
 import Home from './components/home.js'
 import GenerateDisclaimer from './components/generate-disclaimer.js'
 import { GenerateSignature } from './components/generate-signature.js'
-import { NewUser } from './components/new-user/index.js'
 
 
 import { useIsAuthenticated, useMsal } from "@azure/msal-react"
@@ -14,8 +13,8 @@ import { SignInButton } from "./components/azure/SignInButton"
 import LoggedOut from './components/loggedout.js'
 
 const allowedDisclaimerUserIDs = [
-  "c722462b-51ce-446f-a9a5-37ff474323f0",
-  "3145a069-f9c1-4240-9434-385498de8f33"
+  "c722462b-51ce-446f-a9a5-37ff474323f0", // Alice's ID
+  "3145a069-f9c1-4240-9434-385498de8f33" // Chloë's ID
 ]
 
 export default class App extends Component {
@@ -59,7 +58,7 @@ const PageLayout = (props) => {
 function LPNavBar(props) {
   const { accounts } = useMsal()
 
-  let accountID = accounts[0] && accounts[0].homeAccountID
+  let accountID = accounts[0] && accounts[0].localAccountId
 
   console.log("Account ID: " + JSON.stringify(accountID))
 
@@ -75,10 +74,7 @@ function LPNavBar(props) {
             <LinkContainer to="/signature-generator" hidden={!props.isLoggedIn}>
               <Nav.Link>Signature Generator</Nav.Link>
             </LinkContainer>
-            {/* <LinkContainer to="new-user">
-              <Nav.Link>New User Setup</Nav.Link>
-            </LinkContainer> */}
-            <LinkContainer to="/disclaimer-generator" hidden={allowedDisclaimerUserIDs.indexOf(props.lpHomeAccountID) >= 0 ? false : true}>
+            <LinkContainer to="/disclaimer-generator" hidden={allowedDisclaimerUserIDs.indexOf(accountID) >= 0 ? false : true}>
               <Nav.Link>Disclaimer Generator</Nav.Link>
             </LinkContainer>
           </Nav>
@@ -121,7 +117,6 @@ function LPRouter(props) {
         <Switch>
           <Route path="/signature-generator"><GenerateSignature /></Route>
           <Route path="/disclaimer-generator"><GenerateDisclaimer /></Route>
-          <Route path="/new-user"><NewUser/></Route>
           <Route path="/logged-out"><LoggedOut /></Route>
         </Switch>
       </>
@@ -130,7 +125,6 @@ function LPRouter(props) {
     return (
       <>
         <Switch>
-          <Route path="/new-user"><NewUser/></Route>
           <Route><NotLoggedInHome /></Route>
         </Switch>
       </>
@@ -143,19 +137,9 @@ function NotLoggedInHome() {
   return (
     <>
       <Row style={{ textAlign: "center" }}>
-        {/* <Col md={6} sm={12}>
+        <Col>
           <Jumbotron style={{ height: "90%" }}>
-            <h1>New Users</h1>
-            <p>Get up and running by pressing the button below</p>
-            <br />
-            <LinkContainer to="/new-user">
-              <Button>Get Started</Button>
-            </LinkContainer>
-          </Jumbotron>
-        </Col> */}
-        <Col md={12} sm={12}>
-          <Jumbotron style={{ height: "90%" }}>
-            <h1>Hello!</h1>
+            <h1>Not Signed In</h1>
             <p>You must be logged in if you want to view this page.</p>
             <br />
             <SignInButton />
