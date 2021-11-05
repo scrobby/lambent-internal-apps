@@ -1,34 +1,41 @@
-import { Col, Row, Button, Image, Container } from "react-bootstrap"
+import { Col, Row, Button, Image, Container, Jumbotron } from "react-bootstrap"
 
 import { useLocation, useHistory } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 
-import steps from './steps.json'
+// import steps from './steps.json'
 import ReactMarkdown from "react-markdown"
 
 export function NewUser(props) {
-    const currentStep = useLocation().hash
-    const history = useHistory()
-
-    if (!currentStep || currentStep.length < 2) {
-        history.push('#welcome')
-        return ('')
-    }
-
-    const stepKeys = Object.keys(steps)
-    stepKeys.pop()
-
     return (
-        <>
-            {/* <Jumbotron style={{ backgroundColor: "white" }}> */}
-            <Container>
-                <NUStep details={steps[currentStep]} />
-                <hr />
-                <NUNavButtons currentStep={currentStep} stepKeys={stepKeys} prevKey={prevKey(currentStep, stepKeys)} />
-            </Container>
-            {/* </Jumbotron> */}
-        </>
+        <Jumbotron>
+            <h1>This section has not been set up yet.</h1>
+            <p>Please speak to Chloë <a href="msteams://teams.microsoft.com/l/chat/0/0?users=chloe@lambent.tv&topicName=Lambent%20Tools">on Teams</a> or <a href="mailto:chloe@lambent.tv">by email</a> if you need help setting things up.</p>
+        </Jumbotron>
     )
+    // const currentStep = useLocation().hash
+    // const history = useHistory()
+
+    // if (!currentStep || currentStep.length < 2) {
+    //     history.push('#welcome')
+    //     return ('')
+    // }
+
+    // const stepKeys = Object.keys(steps)
+    // stepKeys.pop()
+
+    // return (
+    //     <>
+    //         {/* <Jumbotron style={{ backgroundColor: "white" }}> */}
+    //         <Container>
+    //             <NUStep details={steps[currentStep]} />
+    //             <hr />
+    //             <NUNavButtons currentStep={currentStep} stepKeys={stepKeys} prevKey={prevKey(currentStep, stepKeys)} />
+    //         </Container>
+    //         {/* </Jumbotron> */}
+    //     </>
+    // )
+    
 }
 
 function NUStep(props) {

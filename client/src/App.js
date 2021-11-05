@@ -75,9 +75,9 @@ function LPNavBar(props) {
             <LinkContainer to="/signature-generator" hidden={!props.isLoggedIn}>
               <Nav.Link>Signature Generator</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="new-user">
+            {/* <LinkContainer to="new-user">
               <Nav.Link>New User Setup</Nav.Link>
-            </LinkContainer>
+            </LinkContainer> */}
             <LinkContainer to="/disclaimer-generator" hidden={allowedDisclaimerUserIDs.indexOf(props.lpHomeAccountID) >= 0 ? false : true}>
               <Nav.Link>Disclaimer Generator</Nav.Link>
             </LinkContainer>
@@ -143,7 +143,7 @@ function NotLoggedInHome() {
   return (
     <>
       <Row style={{ textAlign: "center" }}>
-        <Col md={6} sm={12}>
+        {/* <Col md={6} sm={12}>
           <Jumbotron style={{ height: "90%" }}>
             <h1>New Users</h1>
             <p>Get up and running by pressing the button below</p>
@@ -152,10 +152,10 @@ function NotLoggedInHome() {
               <Button>Get Started</Button>
             </LinkContainer>
           </Jumbotron>
-        </Col>
-        <Col md={6} sm={12}>
+        </Col> */}
+        <Col md={12} sm={12}>
           <Jumbotron style={{ height: "90%" }}>
-            <h1>Existing Users</h1>
+            <h1>Hello!</h1>
             <p>You must be logged in if you want to view this page.</p>
             <br />
             <SignInButton />
