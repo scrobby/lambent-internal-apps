@@ -19,13 +19,6 @@ export function NewUser(props) {
     stepKeys.pop()
 
     return (
-        <Jumbotron>
-            <h1>This section has not been set up yet.</h1>
-            <p>Please speak to Chloë <a href="msteams://teams.microsoft.com/l/chat/0/0?users=chloe@lambent.tv&topicName=Lambent%20Tools">on Teams</a> or <a href="mailto:chloe@lambent.tv">by email</a> if you need help setting things up.</p>
-        </Jumbotron>
-    )
-
-    return (
         <>
             {/* <Jumbotron style={{ backgroundColor: "white" }}> */}
             <Container>
