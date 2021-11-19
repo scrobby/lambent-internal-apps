@@ -101,7 +101,7 @@ export function GenerateSignature(props) {
                         <hr />
                         <Row>
                             <Col>
-                                <h3>Raw HTML</h3>
+                                <h3>HTML</h3>
                                 <code>
                                     {signatureHTML}
                                 </code>
@@ -120,7 +120,7 @@ function GenerateSignatureHeader() {
             <Col>
                 <Jumbotron>
                     <h1>Generate Email Signature</h1>
-                    <p>Enter your details below and press "Generate" to create a signature, either as formatted text or as raw HTML.</p>
+                    <p>Enter your details below and the signature will automatically update. Copy and paste it into whichever email client you prefer - most will accept the Formatted Text, unless they specifically ask for HTML.</p>
                 </Jumbotron>
             </Col>
         </Row>
