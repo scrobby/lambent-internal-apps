@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col } from 'react-bootstrap'
+import { Container, Navbar, Nav, Row, NavDropdown, Col } from 'react-bootstrap'
 
 import Home from './components/home.js'
 import { GenerateDisclaimer } from './components/generate-disclaimer.js'
@@ -88,7 +88,7 @@ const LPNavBarUser = (props) => {
   if (props.isLoggedIn) {
     return (
       <Nav>
-        <NavDropdown id="userDropdown" menuVariant="dark" title={GetUserName()} dark alignRight>
+        <NavDropdown id="userDropdown" menuVariant="dark" title={GetUserName()}>
           <NavDropdown.Header><GetUserEmail /></NavDropdown.Header>
           {/* <NavDropdown.Divider/> */}
           <NavDropdown.Item onClick={() => handleLogout(instance)}>Log Out</NavDropdown.Item>
@@ -135,7 +135,7 @@ function NotLoggedInHome() {
     <>
       <Row style={{ textAlign: "center" }}>
         <Col>
-          <div class="jumbotron" style={{ height: "90%" }}>
+          <div className="jumbotron" style={{ height: "90%" }}>
             <h1>Not Signed In</h1>
             <p>You must be logged in if you want to view this page.</p>
             <br />

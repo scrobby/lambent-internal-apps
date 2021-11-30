@@ -16,7 +16,7 @@ export default class LoggedOut extends Component {
             <>
                 <Row>
                     <Col>
-                        <div class="jumbotron">
+                        <div className="jumbotron">
                             <h1>Logged Out</h1>
                         </div>
                     </Col>

@@ -16,7 +16,7 @@ export default class Home extends Component {
             <>
                 <Row>
                     <Col>
-                        <div class="jumbotron">
+                        <div className="jumbotron">
                             <h1>Lambent Tools</h1>
                             <p>There may or may not be more things here in the future. If anything doesn't work, <a href="msteams://teams.microsoft.com/l/chat/0/0?users=chloe@lambent.tv&topicName=Lambent%20Tools">contact Chloë</a></p>
                         </div>
