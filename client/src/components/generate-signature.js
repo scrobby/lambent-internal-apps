@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { Row, Col, Jumbotron, Form, Spinner } from 'react-bootstrap'
+import { Row, Col, Form, Spinner } from 'react-bootstrap'
 
 import { useMsal } from '@azure/msal-react'
 import { loginRequest } from '../authConfig'
@@ -118,10 +118,10 @@ function GenerateSignatureHeader() {
     return (
         <Row>
             <Col>
-                <Jumbotron>
+                <div class="jumbotron">
                     <h1>Generate Email Signature</h1>
                     <p>Enter your details below and press "Generate" to create a signature, either as formatted text or as raw HTML.</p>
-                </Jumbotron>
+                </div>
             </Col>
         </Row>
     )

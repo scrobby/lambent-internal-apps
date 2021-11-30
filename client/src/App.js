@@ -135,12 +135,12 @@ function NotLoggedInHome() {
     <>
       <Row style={{ textAlign: "center" }}>
         <Col>
-          <Jumbotron style={{ height: "90%" }}>
+          <div class="jumbotron" style={{ height: "90%" }}>
             <h1>Not Signed In</h1>
             <p>You must be logged in if you want to view this page.</p>
             <br />
             <SignInButton />
-          </Jumbotron>
+          </div>
         </Col>
       </Row>
     </>

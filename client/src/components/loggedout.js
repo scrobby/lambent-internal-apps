@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
-import Jumbotron from 'react-bootstrap/Jumbotron'
 
 export default class LoggedOut extends Component {
     constructor(props) {
@@ -17,9 +16,9 @@ export default class LoggedOut extends Component {
             <>
                 <Row>
                     <Col>
-                        <Jumbotron>
+                        <div class="jumbotron">
                             <h1>Logged Out</h1>
-                        </Jumbotron>
+                        </div>
                     </Col>
                 </Row>
                 <Row>
