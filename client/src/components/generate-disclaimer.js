@@ -18,6 +18,7 @@ export const GenerateDisclaimer = () => {
     const [htmlToLoad, setHtmlToLoad] = useState('')
 
     useEffect(() => {
+
         setDisclaimerText("Lambent Productions Ltd | Registered in England no. 3067281 | Registered office: 48 St Leonards Road, Bexhill-on-Sea, East Sussex, TN40 1JB | VAT Reg: 690 5460 24 \n\nFor our Privacy Notice please see https://lambentproductions.co.uk/privacy/")
         loadImages().then((res) => {
             setIsLoading(false)
@@ -29,8 +30,6 @@ export const GenerateDisclaimer = () => {
             axios.get(LIST_IMAGES_ENDPOINT)
                 .then((res) => {
                     let imageData = res.data.objects.Contents
-                    console.log(imageData)
-
                     var newImages = []
 
                     imageData.forEach(element => {
@@ -41,9 +40,12 @@ export const GenerateDisclaimer = () => {
                                 url: ASSETS_BASE_URL + key
                             }
                             newImages.push(image)
-                            setImageOptions(newImages)
                         }
                     })
+
+                    newImages.sort().reverse()
+
+                    setImageOptions(newImages)
 
                     // console.log(newImages)
 
@@ -80,14 +82,14 @@ export const GenerateDisclaimer = () => {
 
         let imageToUse = imageOptions.filter(i => i.name.includes(selectedFile))[0]
 
-        let discImage = imageToUse ? `<p><img src="${imageToUse.url}"></p>` : '<p>No Image Selected</p>'
-        
+        let discImage = imageToUse ? `<p><img style="max-width:95%;" src="${imageToUse.url}"></p>` : '<p>No Image Selected</p>'
+
         let discTextStart = '<p style="font-size:10px;font-family:Helvetica,Arial,Sans-Serif;color:#999">'
-        
+
         let linkedDisclaimer = disclaimerText.replace(LINK_DETECTION_REGEX, (url) => {
             let address = /[a-z]+:\/\//.test(url) ? url : `http://${url}`
             // url = url.replace(/^https?:\/\//, '')
-            return `<a href=${address} target="_blank">${url}</a>`
+            return `<a href="${address}" target="_blank">${url}</a>`
         })
         let discEnd = '<p/>'
 
@@ -150,6 +152,7 @@ export const GenerateDisclaimer = () => {
                     <Col md={8} sm={12}>
                         <Row>
                             <Col>
+                                <hr className="d-sm-block d-md-none"/>
                                 <h3>Preview</h3>
                                 <div dangerouslySetInnerHTML={{ __html: htmlToLoad }} />
                             </Col>
@@ -176,7 +179,7 @@ const GenerateDisclaimerHeader = () => {
             <Col>
                 <div className="jumbotron">
                     <h1>Generate Email Disclaimer</h1>
-                    <p>Upload a new email banner or select one I guess idk</p>
+                    <p>Upload a new email banner or select one below, then copy and paste the HTML code into Exchange Admin</p>
                 </div>
             </Col>
         </Row>
@@ -184,7 +187,6 @@ const GenerateDisclaimerHeader = () => {
 }
 
 const UploadNewImageModal = (props) => {
-    console.log(props)
     return (
         <Modal
             size="md"
@@ -206,7 +208,7 @@ const UploadNewImageForm = (props) => {
 
     const [selectedFile, setSelectedFile] = useState(null)
     const [imageName, setImageName] = useState("")
-    const [isValidated, setIsValidated] = useState(false)
+    const [shouldValidate, setShouldValidate] = useState(false)
     const [imageErrorType, setImageErrorType] = useState('Please select a valid image')
     const [isUploading, setIsUploading] = useState(false)
 
@@ -233,23 +235,25 @@ const UploadNewImageForm = (props) => {
     }
 
     const uploadFile = (e) => {
-        const form = e.currentTarget
-        if (form.checkValidity() === false || selectedFile.size > 10000) {
-            setIsValidated(false)
+        setShouldValidate(true)
+        e.preventDefault()
+        e.stopPropagation()
 
-            e.preventDefault()
-            e.stopPropagation()
+        const form = e.currentTarget
+
+        if (form.checkValidity() === false || selectedFile.size > 100000) {
+            return
         }
 
         const date = new Date()
-        const datePrefix = String(date.getFullYear()).substr(2, 2) + String(date.getMonth()).padStart(2, '0') + String(date.getDay()).padStart(2, '0')
+        const datePrefix = String(date.getFullYear()).substr(2, 2) + String(date.getMonth() + 1).padStart(2, '0') + String(date.getDate()).padStart(2, '0')
 
+        console.log("Date:")
         console.log(date)
 
         var finalName = datePrefix + '_' + imageName
 
         setIsUploading(true)
-        setIsValidated(true)
 
         let extension = selectedFile.name.split('.').pop()
 
@@ -260,10 +264,11 @@ const UploadNewImageForm = (props) => {
 
         axios.post(API_ENDPOINT, { reqObj })
             .then(res => {
-                // axios.put(res.data.fileURL, selectedFile)
-                //     .then(res => {
-                //         console.log(res)
-                // })
+                console.log("Reached 1")
+                axios.put(res.data.fileURL, selectedFile)
+                    .then(res => {
+                        console.log(res)
+                })
                 console.log(res.data.fileURL)
                 fetch(res.data.fileURL, {
                     method: 'PUT',
@@ -274,11 +279,12 @@ const UploadNewImageForm = (props) => {
                         props.onComplete(finalName)
                     })
             })
+
     }
 
     return (
         <>
-            <Form noValidate validated={isValidated} onSubmit={uploadFile}>
+            <Form noValidate validated={shouldValidate} onSubmit={uploadFile}>
                 <Form.Group controlId="disclaimerForm.fileInput">
                     <Form.Label>Disclaimer Image</Form.Label>
                     <Form.Control

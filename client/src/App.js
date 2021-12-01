@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Navbar, Nav, Row, NavDropdown, Col } from 'react-bootstrap'
 
@@ -171,13 +171,13 @@ function handleLogout(instance) {
   });
 }
 
-function PrivateRoute ({component: Component, authed, ...rest}) {
-  return (
-    <Route
-      {...rest}
-      render={(props) => authed === true
-        ? <Component {...props} />
-        : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
-    />
-  )
-}
+// function PrivateRoute ({component: Component, authed, ...rest}) {
+//   return (
+//     <Route
+//       {...rest}
+//       render={(props) => authed === true
+//         ? <Component {...props} />
+//         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
+//     />
+//   )
+// }
