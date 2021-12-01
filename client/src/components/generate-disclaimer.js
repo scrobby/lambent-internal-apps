@@ -13,8 +13,12 @@ export const GenerateDisclaimer = () => {
     const [disableSelect, setDisableSelect] = useState(false)
     const [showUpload, setShowUpload] = useState(false)
     const [selectedFile, setSelectedFile] = useState('select')
+    const [disclaimerText, setDisclaimerText] = useState('')
+
+    const [htmlToLoad, setHtmlToLoad] = useState('')
 
     useEffect(() => {
+        setDisclaimerText("Lambent Productions Ltd | Registered in England no. 3067281 | Registered office: 48 St Leonards Road, Bexhill-on-Sea, East Sussex, TN40 1JB | VAT Reg: 690 5460 24 \n\nFor our Privacy Notice please see https://lambentproductions.co.uk/privacy/")
         loadImages().then((res) => {
             setIsLoading(false)
         })
@@ -58,9 +62,6 @@ export const GenerateDisclaimer = () => {
         if (e.target.value === "upload") {
             console.log("showing")
             setShowUpload(true)
-        } else {
-            console.log(e.target.value)
-            // HANDLE CHANGING THE IMAGE
         }
     }
 
@@ -73,12 +74,32 @@ export const GenerateDisclaimer = () => {
             })
     }
 
+    // Updating HTML
+    useEffect(() => {
+        const LINK_DETECTION_REGEX = /(([a-z]+:\/\/)?(([a-z0-9-]+\.)+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel|local|internal))(:[0-9]{1,5})?(\/[a-z0-9_\-.~]+)*(\/([a-z0-9_\-.]*)(\?[a-z0-9+_\-.%=&amp;]*)?)?(#[a-zA-Z0-9!$&'()*+.=-_~:@/?]*)?)(\s+|$)/gi
+
+        let imageToUse = imageOptions.filter(i => i.name.includes(selectedFile))[0]
+
+        let discImage = imageToUse ? `<p><img src="${imageToUse.url}"></p>` : '<p>No Image Selected</p>'
+        
+        let discTextStart = '<p style="font-size:10px;font-family:Helvetica,Arial,Sans-Serif;color:#999">'
+        
+        let linkedDisclaimer = disclaimerText.replace(LINK_DETECTION_REGEX, (url) => {
+            let address = /[a-z]+:\/\//.test(url) ? url : `http://${url}`
+            // url = url.replace(/^https?:\/\//, '')
+            return `<a href=${address} target="_blank">${url}</a>`
+        })
+        let discEnd = '<p/>'
+
+        setHtmlToLoad(discImage + discTextStart + linkedDisclaimer + discEnd)
+    }, [selectedFile, disclaimerText, imageOptions])
+
     return (
         <>
             <GenerateDisclaimerHeader />
-            <UploadNewImageModal 
-                setShowUpload={setShowUpload} 
-                showUpload={showUpload} 
+            <UploadNewImageModal
+                setShowUpload={setShowUpload}
+                showUpload={showUpload}
                 onComplete={imageUploadOnCompete}
             />
             <Row hidden={!isLoading}>
@@ -88,7 +109,7 @@ export const GenerateDisclaimer = () => {
             </Row>
             <div className={"loadedView" + (isLoading ? "" : " fade-in")}>
                 <Row>
-                    <Col md={6} sm={12}>
+                    <Col md={4} sm={12}>
                         <Form>
                             <Form.Group controlId="disclaimerForm.previousFiles">
                                 <Form.Label>
@@ -109,11 +130,39 @@ export const GenerateDisclaimer = () => {
                                     })}
                                 </Form.Select>
                             </Form.Group>
+                            <br />
+                            <Form.Group>
+                                <Form.Label>
+                                    Disclaimer Text
+                                </Form.Label>
+                                <Form.Control
+                                    as="textarea"
+                                    value={disclaimerText}
+                                    rows={8}
+                                    onChange={(e) => setDisclaimerText(e.target.value)}
+                                    style={{ fontSize: "12px" }}
+                                >
 
+                                </Form.Control>
+                            </Form.Group>
                         </Form>
                     </Col>
-                    <Col md={6} sm={12}>
-
+                    <Col md={8} sm={12}>
+                        <Row>
+                            <Col>
+                                <h3>Preview</h3>
+                                <div dangerouslySetInnerHTML={{ __html: htmlToLoad }} />
+                            </Col>
+                        </Row>
+                        <hr />
+                        <Row>
+                            <Col>
+                                <h3>HTML to Copy</h3>
+                                <code>
+                                    {htmlToLoad}
+                                </code>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
             </div>
@@ -193,7 +242,9 @@ const UploadNewImageForm = (props) => {
         }
 
         const date = new Date()
-        const datePrefix = String(date.getFullYear()).substr(2,2) + String(date.getMonth()).padStart(2,'0') + String(date.getDay()).padStart(2,'0')
+        const datePrefix = String(date.getFullYear()).substr(2, 2) + String(date.getMonth()).padStart(2, '0') + String(date.getDay()).padStart(2, '0')
+
+        console.log(date)
 
         var finalName = datePrefix + '_' + imageName
 
@@ -259,9 +310,9 @@ const UploadNewImageForm = (props) => {
                 <Row>
                     <Col>
                         <Button disabled={isUploading} className="float-left" type="submit">Upload Image</Button>
-                        </Col>
-                        <Col>
-                        <Spinner hidden={!isUploading} className="float-right" animation="grow" variant="primary" float-left="true"/>
+                    </Col>
+                    <Col>
+                        <Spinner hidden={!isUploading} className="float-right" animation="grow" variant="primary" float-left="true" />
                     </Col>
                 </Row>
             </Form>
