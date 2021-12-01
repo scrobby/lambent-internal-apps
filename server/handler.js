@@ -42,7 +42,7 @@ module.exports.generateSignedURL = (event, context, callback) => {
 }
 
 module.exports.listSignatureImages = (event, context, callback) => {
-  myBucket.listObjects({prefix: 'sig-img'}, (err, list) => {
+  myBucket.listObjects({Prefix: 'sig-img'}, (err, list) => {
     const response = {
       statusCode: 200,
       headers: {
