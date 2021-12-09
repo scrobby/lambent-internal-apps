@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col, Button } from 'react-bootstrap'
+import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col } from 'react-bootstrap'
 
 import Home from './components/home.js'
 import GenerateDisclaimer from './components/generate-disclaimer.js'
 import { GenerateSignature } from './components/generate-signature.js'
-import { NewUser } from './components/new-user/index.js'
 
 
 import { useIsAuthenticated, useMsal } from "@azure/msal-react"
@@ -121,7 +120,6 @@ function LPRouter(props) {
         <Switch>
           <Route path="/signature-generator"><GenerateSignature /></Route>
           <Route path="/disclaimer-generator"><GenerateDisclaimer /></Route>
-          <Route path="/new-user"><NewUser/></Route>
           <Route path="/logged-out"><LoggedOut /></Route>
         </Switch>
       </>
@@ -130,7 +128,6 @@ function LPRouter(props) {
     return (
       <>
         <Switch>
-          <Route path="/new-user"><NewUser/></Route>
           <Route><NotLoggedInHome /></Route>
         </Switch>
       </>
@@ -143,19 +140,9 @@ function NotLoggedInHome() {
   return (
     <>
       <Row style={{ textAlign: "center" }}>
-        <Col md={6} sm={12}>
+        <Col>
           <Jumbotron style={{ height: "90%" }}>
-            <h1>New Users</h1>
-            <p>Get up and running by pressing the button below</p>
-            <br />
-            <LinkContainer to="/new-user">
-              <Button>Get Started</Button>
-            </LinkContainer>
-          </Jumbotron>
-        </Col>
-        <Col md={6} sm={12}>
-          <Jumbotron style={{ height: "90%" }}>
-            <h1>Existing Users</h1>
+            <h1>Not Signed In</h1>
             <p>You must be logged in if you want to view this page.</p>
             <br />
             <SignInButton />
