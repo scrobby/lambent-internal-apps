@@ -1,0 +1,44 @@
+# Welcome to serverless. Read the docs
+# https://serverless.com/framework/docs/
+
+# Serverless.yml is the configuration the CLI
+# uses to deploy your code to your provider of choice
+
+# The `service` block is the name of the service
+service: server
+
+frameworkVersion: '2'
+useDotenv: true
+variablesResolutionMode: 20210326
+
+# The `provider` block defines where your service will be deployed
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-2
+  lambdaHashingVersion: 20201221
+
+# The `functions` block defines what code to deploy
+functions:
+  generateSignedURL:
+    handler: handler.generateSignedURL
+    environment:
+      AWS_ACCESS_ID: ${ssm:/lp-access-id}
+      AWS_ACCESS_SECRET: ${ssm:/lp-access-secret}
+    events:
+      - http:
+          path: generate-url
+          method: post
+          cors: 
+            origin: 'https://tools.lambent.tv'
+            headers: '*'
+  listSignatureImages:
+    handler: handler.listSignatureImages
+    environment:
+      AWS_ACCESS_ID: ${ssm:/lp-access-id}
+      AWS_ACCESS_SECRET: ${ssm:/lp-access-secret}
+    events:
+      - http:
+          path: list-signature-images
+          method: get
+          cors: true
