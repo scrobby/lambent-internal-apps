@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Container, Navbar, Nav, Row, Jumbotron, NavDropdown, Col } from 'react-bootstrap'
+import { Container, Navbar, Nav, Row, NavDropdown, Col } from 'react-bootstrap'
 
 import Home from './components/home.js'
 import GenerateDisclaimer from './components/generate-disclaimer.js'
@@ -138,12 +138,12 @@ function NotLoggedInHome() {
     <>
       <Row style={{ textAlign: "center" }}>
         <Col>
-          <Jumbotron style={{ height: "90%" }}>
+          <div style={{ height: "90%" }} class="jumbotron">
             <h1>Not Signed In</h1>
             <p>You must be logged in if you want to view this page.</p>
             <br />
             <SignInButton />
-          </Jumbotron>
+          </div>
         </Col>
       </Row>
     </>
