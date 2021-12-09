@@ -29,7 +29,9 @@ functions:
       - http:
           path: generate-url
           method: post
-          cors: true
+          cors: 
+            origin: 'https://tools.lambent.tv'
+            headers: '*'
   listSignatureImages:
     handler: handler.listSignatureImages
     environment:

@@ -18,8 +18,7 @@ export const GenerateDisclaimer = () => {
     const [htmlToLoad, setHtmlToLoad] = useState('')
 
     useEffect(() => {
-
-        setDisclaimerText("Lambent Productions Ltd | Registered in England no. 3067281 | Registered office: 48 St Leonards Road, Bexhill-on-Sea, East Sussex, TN40 1JB | VAT Reg: 690 5460 24 \n\nFor our Privacy Notice please see https://lambentproductions.co.uk/privacy/")
+        setDisclaimerText("Lambent Productions Ltd | Registered in England no. 3067281 | Registered office: 48 St Leonards Road, Bexhill-on-Sea, East Sussex, TN40 1JB | VAT Reg: 690 5460 24 \n\nFor our Privacy Notice please see https://lambent.tv/privacy/")
         loadImages().then((res) => {
             setIsLoading(false)
         })
@@ -179,7 +178,7 @@ const GenerateDisclaimerHeader = () => {
             <Col>
                 <div className="jumbotron">
                     <h1>Generate Email Disclaimer</h1>
-                    <p>Upload a new email banner or select one below, then copy and paste the HTML code into Exchange Admin</p>
+                    <p>Upload a new email banner or select one below, then copy and paste the HTML code into Exchange Admin. For full instructions, use <a href="https://lambentprods.sharepoint.com/SitePages/Updating-Email-Disclaimer.aspx" target="_blank" rel="noreferrer">this guide</a>.</p>
                 </div>
             </Col>
         </Row>
