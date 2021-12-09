@@ -151,7 +151,7 @@ function GenerateSignatureHeader() {
             <Col>
                 <div class="jumbotron">
                     <h1>Generate Email Signature</h1>
-                    <p>Enter your details below and the signature will automatically update. Copy and paste it into whichever email client you prefer - most will accept the Formatted Text, unless they specifically ask for HTML. For full instructions on how to update your email signature, please use the <a href="https://lambentprods.sharepoint.com/SitePages/Email-Signature.aspx" rel="_blank">how-to guide</a>.</p>
+                    <p>Enter your details below and the signature will automatically update. Copy and paste it into whichever email client you prefer - most will accept the Formatted Text, unless they specifically ask for HTML. For full instructions on how to update your email signature, please use the <a href="https://lambentprods.sharepoint.com/SitePages/Email-Signature.aspx" target="_blank" rel="noreferrer">how-to guide</a>.</p>
                 </div>
             </Col>
         </Row>
