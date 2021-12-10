@@ -39,12 +39,12 @@
     },
     "#set-up-authenticator-1": {
         "title": "Set Up Authenticator",
-        "text": "You will now be asked to provide more information.\n\nSkip through the first two sections until a QR code appears on screen, then move onto the next step here.",
+        "text": "You will now be asked to provide more information.\n\nPress **Next** until a QR code appears on screen, then move onto the next step here.",
         "image": "authenticator-browser.gif"
     },
     "#set-up-authenticator-2": {
         "title": "Set Up Authenticator",
-        "text": "When you open the Authenticator app, it will ask you to agree to the privacy policy. Cick **I agree**.\n\nNext, click on **Scan a QR Code**. The app will ask permission to use the camera - click **OK**.\n\nPoint the camera at the QR code on screen until it registers. The Authenticator app might ask you if it can send notifications at this stage - click **Allow**.\n\nWhen you are done, move onto the next step here.",
+        "text": "Open the **Microsoft Authenticator** app on your phone. It will ask you to agree to the privacy policy - Cick **I agree**.\n\nNext, click on **Scan a QR Code**. The app will ask permission to use the camera - click **OK**.\n\nPoint the camera at the QR code on screen until it registers. The Authenticator app might ask you if it can send notifications at this stage - click **Allow**.\n\nWhen you are done, move onto the next step here.",
         "image": "iphone-authenticator-1.gif"
     },
     "#set-up-authenticator-3": {

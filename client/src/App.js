@@ -6,6 +6,7 @@ import { Container, Navbar, Nav, Row, NavDropdown, Col } from 'react-bootstrap'
 import Home from './components/home.js'
 import { GenerateDisclaimer } from './components/generate-disclaimer.js'
 import { GenerateSignature } from './components/generate-signature.js'
+import { NewUser } from './components/new-user/index.js'
 
 
 import { useIsAuthenticated, useMsal } from "@azure/msal-react"
@@ -115,6 +116,7 @@ function LPRouter(props) {
       <>
         <Route path="/" exact><Home /></Route>
         <Switch>
+          <Route path="/new-user"><NewUser /></Route>
           <Route path="/signature-generator"><GenerateSignature /></Route>
           <Route path="/disclaimer-generator"><GenerateDisclaimer /></Route>
           <Route path="/logged-out"><LoggedOut /></Route>
@@ -125,6 +127,7 @@ function LPRouter(props) {
     return (
       <>
         <Switch>
+          <Route path="/new-user"><NewUser /></Route>
           <Route><NotLoggedInHome /></Route>
         </Switch>
       </>
