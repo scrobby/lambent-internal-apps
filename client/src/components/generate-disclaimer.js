@@ -81,7 +81,7 @@ export const GenerateDisclaimer = () => {
 
         let imageToUse = imageOptions.filter(i => i.name.includes(selectedFile))[0]
 
-        let discImage = imageToUse ? `<p><img style="max-width:95%;" src="${imageToUse.url}"></p>` : '<p>No Image Selected</p>'
+        let discImage = imageToUse ? `<p><img style="max-width:95%; max-height:180px;" src="${imageToUse.url}"></p>` : '<p>No Image Selected</p>'
 
         let discTextStart = '<p style="font-size:10px;font-family:Helvetica,Arial,Sans-Serif;color:#999">'
 
