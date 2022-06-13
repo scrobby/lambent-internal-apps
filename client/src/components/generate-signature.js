@@ -19,6 +19,8 @@ export function GenerateSignature(props) {
     const [showMobile, setShowMobile] = useState(true)
     const [showEmail, setShowEmail] = useState(false)
     const [showWebsite, setShowWebsite] = useState(true)
+    const [address, setAddress] = useState(true)
+    const [showAddress, setShowAddress] = useState(true)
 
     let account = accounts && accounts[0]
 
@@ -28,6 +30,7 @@ export function GenerateSignature(props) {
         GetGraphData(account, instance, (profileData => {
             console.log(JSON.stringify(profileData))
             setFullName(profileData.displayName ? profileData.displayName : "")
+            setAddress("Lambent Productions, 96 Church Street, Brighton, BN1 1UJ")
             setJobTitle(profileData.jobTitle ? profileData.jobTitle : "")
             setMobile(profileData.mobilePhone ? profileData.mobilePhone : "")
             setLandline(profileData.businessPhones ? profileData.businessPhones[0] ? profileData.businessPhones[0] : "" : "")
@@ -39,8 +42,8 @@ export function GenerateSignature(props) {
     }, [])
 
     let sigStart = '<p style="font-size:12px;font-family:Calibri, Arial, Sans-Serif;"><strong><span style="color: #333;">'
-    let sigNameTitle = (fullName ? fullName : 'Full Name') + ' |</span>&nbsp;<span style="color: #fd6320;">' + (jobTitle ? jobTitle : 'Job Title')
-    let sigAddress = '</span></strong><br /> <span style="color: #555;">Lambent Productions, 96 Church Street, Brighton, BN1 1UJ</span>'
+    let sigNameTitle = (fullName ? fullName : 'Full Name') + ' |</span>&nbsp;<span style="color: #fd6320;">' + (jobTitle ? jobTitle : 'Job Title') + "</span></strong>"
+    let sigAddress = (showAddress ?`<br /> <span style="color: #555;">${address}</span>` : '')
     let sigLandline = (showLandline ? '<br /><span style="color: #555;">T:</span>&nbsp;<a href="tel:' + landline.replace(/\s/g, '') + '" style="color: #1b9ce2;">' + landline + '</a>' : '')
     let sigMobile = (mobile && showMobile ? '<br /><span style="color: #555;">M:</span>&nbsp;<a href="tel:' + mobile.replace(/\s/g, '') + '" style="color: #1b9ce2;">' + mobile + '</a>' : '')
     let sigEmail = (showEmail ? '<br /><span style="color: #555;">E:</span>&nbsp;<a href="mailto:"' + userEmail + ' style="color: #1b9ce2;">' + userEmail + '</a>' : '')
@@ -91,6 +94,20 @@ export function GenerateSignature(props) {
                                     } value={mobile} />
                                 </FloatingLabel>
                             </Form.Group>
+                            <Form.Group controlId="signatureForm.Address">
+                                <FloatingLabel
+                                    controlId="floatingInput"
+                                    className="mb-3"
+                                    label="Address"
+                                >
+                                    <Form.Control type="Text" name="address" size="sm" onChange={
+                                        (e) => {
+                                            setAddress(e.target.value)
+                                            setShowAddress(e.target.value.length > 0)
+                                        }
+                                    } value={address} />
+                                </FloatingLabel>
+                            </Form.Group>
                             <Form.Group controlId="signatureForm.Landline">
                                 <FloatingLabel
                                     controlId="floatingInput"
@@ -108,6 +125,9 @@ export function GenerateSignature(props) {
                             <Row>
                                 <Form.Group as={Col} lg={6} md={12} sm={6} xs={12} controlId="signatureForm.ShowLandline">
                                     <Form.Check type="Checkbox" name="showLandline" onChange={e => setShowLandline(e.target.checked)} checked={showLandline} label="Show Landline" />
+                                </Form.Group>
+                                <Form.Group as={Col} lg={6} md={12} sm={6} xs={12} controlId="signatureForm.ShowAddress">
+                                    <Form.Check type="Checkbox" name="showAddress" onChange={e => setShowAddress(e.target.checked)} checked={showAddress} label="Show Address" />
                                 </Form.Group>
                                 <Form.Group as={Col} lg={6} md={12} sm={6} xs={12} controlId="signatureForm.ShowMobile">
                                     <Form.Check type="Checkbox" name="showMobile" onChange={e => setShowMobile(e.target.checked)} checked={showMobile} label="Show Mobile" />
