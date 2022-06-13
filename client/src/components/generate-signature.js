@@ -42,11 +42,11 @@ export function GenerateSignature(props) {
     }, [])
 
     let sigStart = '<p style="font-size:12px;font-family:Calibri, Arial, Sans-Serif;"><strong><span style="color: #333;">'
-    let sigNameTitle = (fullName ? fullName : 'Full Name') + ' |</span>&nbsp;<span style="color: #fd6320;">' + (jobTitle ? jobTitle : 'Job Title') + "</span></strong>"
-    let sigAddress = (showAddress ?`<br /> <span style="color: #555;">${address}</span>` : '')
-    let sigLandline = (showLandline ? '<br /><span style="color: #555;">T:</span>&nbsp;<a href="tel:' + landline.replace(/\s/g, '') + '" style="color: #1b9ce2;">' + landline + '</a>' : '')
-    let sigMobile = (mobile && showMobile ? '<br /><span style="color: #555;">M:</span>&nbsp;<a href="tel:' + mobile.replace(/\s/g, '') + '" style="color: #1b9ce2;">' + mobile + '</a>' : '')
-    let sigEmail = (showEmail ? '<br /><span style="color: #555;">E:</span>&nbsp;<a href="mailto:"' + userEmail + ' style="color: #1b9ce2;">' + userEmail + '</a>' : '')
+    let sigNameTitle = `${fullName ? fullName : 'Full Name'} | </span><span style="color: #fd6320;">${jobTitle ? jobTitle : 'Job Title'}</span></strong>`
+    let sigAddress = showAddress ? `<br /> <span style="color: #555;">${address}</span>` : ''
+    let sigLandline = showLandline ? `<br /><span style="color: #555;">T: </span><a href="tel:${landline.replace(/\s/g, '')}" style="color: #1b9ce2;">${landline}</a>` : ''
+    let sigMobile = mobile && showMobile ? `<br /><span style="color: #555;">M: </span><a href="tel:${mobile.replace(/\s/g, '')}" style="color: #1b9ce2;">${mobile}</a>` : ''
+    let sigEmail = showEmail ? `<br /><span style="color: #555;">E:</span>&nbsp;<a href="mailto:${userEmail}" style="color: #1b9ce2;">${userEmail}</a>` : ''
     let sigWebsite = showWebsite ? '<br /><span style="color: #555;">W:</span>&nbsp;<span style="color: #1b9ce2;"><a style="color: #1b9ce2;" title="Lambent Productions" href="https://lambent.tv/" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" data-linkindex="2">lambent.tv</a></span>' : ''
     var signatureHTML = sigStart + sigNameTitle + sigAddress + sigLandline + sigMobile + sigEmail + sigWebsite + '</p>'
 
