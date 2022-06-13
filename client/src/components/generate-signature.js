@@ -24,11 +24,8 @@ export function GenerateSignature(props) {
 
     let account = accounts && accounts[0]
 
-    console.log("Is this repeating now?")
-
     useEffect(() => {
         GetGraphData(account, instance, (profileData => {
-            console.log(JSON.stringify(profileData))
             setFullName(profileData.displayName ? profileData.displayName : "")
             setAddress("Lambent Productions, 96 Church Street, Brighton, BN1 1UJ")
             setJobTitle(profileData.jobTitle ? profileData.jobTitle : "")
